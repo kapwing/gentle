@@ -11,6 +11,10 @@ env:
   IMAGE_REPOSITORY: us-east1-docker.pkg.dev/kapwing-dev/gentle-transcription-service/gentle-image
   USE_GKE_GCLOUD_AUTH_PLUGIN: true
 
+permissions:
+  contents: "read"
+  id-token: "write"
+
 jobs:
   build:
     runs-on: ubuntu-latest
