@@ -1,3 +1,4 @@
+import time
 from twisted.web.static import File
 from twisted.web.resource import Resource
 from twisted.web.server import Site, NOT_DONE_YET
@@ -94,6 +95,7 @@ class Transcriber:
             for k, v in p.items():
                 status[k] = v
 
+        start_time = time.time()
         if len(transcript.strip()) > 0:
             trans = gentle.ForcedAligner(
                 self.resources, transcript, nthreads=self.nthreads, **kwargs
@@ -108,6 +110,8 @@ class Transcriber:
             return
 
         output = trans.transcribe(wavfile, progress_cb=on_progress, logging=logging)
+        end_time = time.time()
+        logging.info(f"forced alignment took {end_time - start_time} seconds")
 
         # ...remove the original upload
         os.unlink(os.path.join(outdir, "upload"))
@@ -185,7 +189,7 @@ class TranscriptionsController(Resource):
             tran,
             audio,
             async_mode,
-            **kwargs
+            **kwargs,
         )
 
         if not async_mode:
