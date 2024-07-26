@@ -1,0 +1,35 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+env:
+  PROJECT: kapwing-dev
+  IMAGE_REPOSITORY: us-east1-docker.pkg.dev/kapwing-dev/gentle-transcription-service/gentle-image
+  USE_GKE_GCLOUD_AUTH_PLUGIN: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: "gcp_auth"
+        uses: "./.github/actions/gcp-auth"
+        with:
+          workload_identity_provider: "projects/809028692659/locations/global/workloadIdentityPools/dev-ci-pool/providers/github-provider"
+          service_account: "kapwing-dev@appspot.gserviceaccount.com"
+
+      - name: helper
+        run: |
+          gcloud auth configure-docker us-east1-docker.pkg.dev -q
+
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag ${IMAGE_REPOSITORY}
+
+      - name: Push the Docker image
+        run: docker push ${IMAGE_REPOSITORY}
