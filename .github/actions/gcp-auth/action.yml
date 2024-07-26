@@ -1,0 +1,36 @@
+name: GCP Auth
+description: "Auth to google Cloud"
+
+inputs:
+  WORKLOAD_IDENTITY_PROVIDER:
+    description: "Auth Provider "
+    required: false
+    default: "projects/809028692659/locations/global/workloadIdentityPools/dev-ci-pool/providers/github-provider"
+  SERVICE_ACCOUNT:
+    description: "Service Account"
+    required: false
+    default: "gke-dev-github@kapwing-gke-dev17396342.iam.gserviceaccount.com"
+  cleanup_credentials:
+    description: |-
+      If true, the action will remove any created credentials from the
+      filesystem upon completion. This only applies if "create_credentials_file"
+      is true.
+    default: true
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - id: "gcp_auth"
+      name: "Authenticate to Google Cloud"
+      uses: "google-github-actions/auth@v2"
+      with:
+        workload_identity_provider: ${{ inputs.WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ inputs.SERVICE_ACCOUNT }}
+        create_credentials_file: true
+        cleanup_credentials: ${{ inputs.cleanup_credentials }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        install_components: "gke-gcloud-auth-plugin"
