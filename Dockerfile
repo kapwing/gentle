@@ -29,10 +29,10 @@ RUN export MAKEFLAGS=' -j8' &&  cd /gentle/ext && \
 
 ADD . /gentle
 RUN cd /gentle && python3 setup.py bdist_wheel
-RUN cd /gentle && ./install_models.sh
+# RUN cd /gentle && ./install_models.sh
 
-EXPOSE 8765
+# EXPOSE 8765
 
-VOLUME /gentle/webdata
+# VOLUME /gentle/webdata
 
-CMD cd /gentle && python3 serve.py
+# CMD cd /gentle && python3 serve.py
