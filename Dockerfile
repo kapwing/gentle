@@ -13,7 +13,8 @@ RUN DEBIAN_FRONTEND=noninteractive && \
   ffmpeg \
   python3 python3-dev python3-pip \
   python python-dev python-pip \
-  wget unzip && \
+  wget unzip \
+  sox && \
   apt-get clean
 
 ADD ext /gentle/ext
