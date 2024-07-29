@@ -20,7 +20,9 @@ RUN DEBIAN_FRONTEND=noninteractive && \
 ADD ext /gentle/ext
 RUN export MAKEFLAGS=' -j8' &&  cd /gentle/ext && \
   ./install_kaldi.sh && \
-  ./kaldi/src/configure && \
+  cd kaldi/src && \
+  ./configure && \
+  cd ../.. && \
   make depend && make && rm -rf kaldi *.o
 
 ADD . /gentle
