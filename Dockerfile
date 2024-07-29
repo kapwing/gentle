@@ -18,9 +18,9 @@ RUN DEBIAN_FRONTEND=noninteractive && \
   apt-get clean
 
 ADD ext /gentle/ext
-RUN ./gentle/ext/kaldi/src/configure
 RUN export MAKEFLAGS=' -j8' &&  cd /gentle/ext && \
   ./install_kaldi.sh && \
+  ./kaldi/src/configure && \
   make depend && make && rm -rf kaldi *.o
 
 ADD . /gentle
