@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Prepare Kaldi
+rm -rf kaldi
+git clone https://github.com/kaldi-asr/kaldi.git
 cd kaldi/tools
 make clean
 make
