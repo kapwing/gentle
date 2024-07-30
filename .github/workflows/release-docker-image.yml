@@ -26,8 +26,7 @@ jobs:
         uses: "./.github/actions/gcp-auth"
 
       - name: helper
-        run: |
-          gcloud auth configure-docker us-east1-docker.pkg.dev -q
+        run: gcloud auth configure-docker us-east1-docker.pkg.dev -q
 
       # - name: Pull existing Docker image
       #   run: docker pull ${IMAGE_REPOSITORY}
