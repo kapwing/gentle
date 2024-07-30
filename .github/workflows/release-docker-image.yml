@@ -28,9 +28,6 @@ jobs:
       - name: helper
         run: gcloud auth configure-docker us-east1-docker.pkg.dev -q
 
-      # - name: Pull existing Docker image
-      #   run: docker pull ${IMAGE_REPOSITORY}
-
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ${IMAGE_REPOSITORY}
 
