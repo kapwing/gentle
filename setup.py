@@ -12,6 +12,6 @@ setup(
     author="Robert M Ochshorn",
     license="MIT",
     packages=["gentle"],
-    install_requires=["zope", "twisted"],
+    install_requires=["twisted"],
     test_suite="tests",
 )
