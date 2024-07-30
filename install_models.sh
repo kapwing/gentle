@@ -1,5 +1,17 @@
 #!/bin/bash
 
-docker pull lowerquality/gentle
-docker run lowerquality/gentle
-docker cp $(docker container ls -n 1 -q):/gentle/exp .
+set -e
+
+VERSION="0.03"
+
+download_models() {
+	local version="$1"
+	local filename="kaldi-models-$version.zip"
+	local url="https://lowerquality.com/gentle/$filename"
+	wget -O $filename $url
+	unzip $filename
+	rm $filename
+}
+
+echo "Downloading models for v$VERSION..." 1>&2
+download_models $VERSION
