@@ -9,6 +9,7 @@ on:
 env:
   PROJECT: kapwing-dev
   IMAGE_REPOSITORY: us-east1-docker.pkg.dev/kapwing-dev/gentle-transcription-service/gentle-image
+  IMAGE_REGION: us-east1
   USE_GKE_GCLOUD_AUTH_PLUGIN: true
 
 permissions:
@@ -41,4 +42,4 @@ jobs:
         run: docker push ${IMAGE_REPOSITORY}
 
       - name: Reassign Gentle transcription service to new Docker image
-        run: gcloud run services update gentle-transcription-service --image=${IMAGE_REPOSITORY}
+        run: gcloud run services update gentle-transcription-service --image=${IMAGE_REPOSITORY} --region=${IMAGE_REGION}
