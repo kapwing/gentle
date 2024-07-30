@@ -31,6 +31,9 @@ jobs:
       - name: Download models
         run: gsutil cp gs://kapwing-useast1/mlmodels/exp .
 
+      - name: Pull existing Docker image
+        run: docker pull ${IMAGE_REPOSITORY}
+
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ${IMAGE_REPOSITORY}
 
