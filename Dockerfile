@@ -29,6 +29,7 @@ RUN export MAKEFLAGS=' -j8' &&  cd /gentle/ext && \
 
 ADD . /gentle
 RUN cd /gentle && python3 setup.py bdist_wheel
+RUN cd /gentle && pip3 install dist/*.whl
 
 EXPOSE 8765
 
