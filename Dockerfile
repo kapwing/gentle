@@ -29,7 +29,6 @@ RUN export MAKEFLAGS=' -j8' &&  cd /gentle/ext && \
 
 ADD . /gentle
 RUN cd /gentle && python3 setup.py bdist_wheel
-RUN cd /gentle && ./install_models.sh
 
 EXPOSE 8765
 

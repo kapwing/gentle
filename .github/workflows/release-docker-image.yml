@@ -28,6 +28,9 @@ jobs:
       - name: helper
         run: gcloud auth configure-docker us-east1-docker.pkg.dev -q
 
+      - name: Download models
+        run: gsutil cp gs://kapwing-useast1/mlmodels/exp .
+
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag ${IMAGE_REPOSITORY}
 
